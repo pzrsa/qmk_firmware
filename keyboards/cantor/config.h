@@ -5,8 +5,6 @@
 
 #include "config_common.h"
 
-#define IGNORE_MOD_TAP_INTERRUPT
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
