@@ -4,29 +4,28 @@
 #include QMK_KEYBOARD_H
 
 // Tap Dance keycodes
-enum td_keycodes {
-    CMD_SPC
+enum tap_dance_codes {
+ DANCE_15,
 };
 
-// Define a type containing as many tapdance states as you need
-typedef enum {
-    TD_UNKNOWN,
-    TD_SINGLE_TAP,
-    TD_SINGLE_HOLD,
-} td_state_t;
+typedef struct {
+    bool is_press_action;
+    uint8_t step;
+} tap;
 
-// Create a global instance of the tapdance state type
-static td_state_t td_state;
+enum {
+    SINGLE_TAP = 1,
+    SINGLE_HOLD,
+    DOUBLE_TAP,
+    DOUBLE_HOLD,
+    DOUBLE_SINGLE_TAP,
+    MORE_TAPS
+};
 
-// Declare your tapdance functions:
-
-// Function to determine the current tapdance state
-td_state_t cur_dance(qk_tap_dance_state_t *state);
-
-// `finished` and `reset` functions for each tapdance keycode
-void cmdspc_finished(qk_tap_dance_state_t *state, void *user_data);
-void cmdspc_reset(qk_tap_dance_state_t *state, void *user_data);
-
+static tap dance_state = {
+    .is_press_action = true,
+    .step = 0
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // base layer
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LOPT,  KC_Z,   KC_X,    KC_C,      KC_V,    KC_B,                         KC_N,   KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LCMD, TD(CMD_SPC),  MO(1),         MO(2),KC_ENT,KC_RSFT
+                                         KC_LCMD, TD(DANCE_15),  MO(1),         MO(2),KC_ENT,KC_RSFT
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -70,45 +69,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-// Determine the tapdance state to return
-td_state_t cur_dance(qk_tap_dance_state_t *state) {
+void on_dance_15(qk_tap_dance_state_t *state, void *user_data);
+uint8_t dance_15_dance_step(qk_tap_dance_state_t *state);
+void dance_15_finished(qk_tap_dance_state_t *state, void *user_data);
+void dance_15_reset(qk_tap_dance_state_t *state, void *user_data);
+
+void on_dance_15(qk_tap_dance_state_t *state, void *user_data) {
+    if(state->count == 3) {
+        tap_code16(KC_SPACE);
+        tap_code16(KC_SPACE);
+        tap_code16(KC_SPACE);
+    }
+    if(state->count > 3) {
+        tap_code16(KC_SPACE);
+    }
+}
+
+uint8_t dance_15_dance_step(qk_tap_dance_state_t *state) {
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
-        else return TD_SINGLE_HOLD;
+        if (state->interrupted || !state->pressed) return SINGLE_TAP;
+        else return SINGLE_HOLD;
+    } else if (state->count == 2) {
+        if (state->interrupted) return DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return DOUBLE_HOLD;
+        else return DOUBLE_TAP;
     }
-    else return TD_UNKNOWN; // Any number higher than the maximum state value you return above
+    return MORE_TAPS;
 }
-
-// Handle the possible states for each tapdance keycode you define:
-
-void cmdspc_finished(qk_tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            register_code16(KC_SPC);
-            break;
-        case TD_SINGLE_HOLD:
-            register_code16(LCMD(KC_SPC)); 
-            break;
-        default:
-            break;
+void dance_15_finished(qk_tap_dance_state_t *state, void *user_data) {
+    dance_state.step = dance_15_dance_step(state);
+    switch (dance_state.step) {
+        case SINGLE_TAP: register_code16(KC_SPACE); break;
+        case SINGLE_HOLD: register_code16(LGUI(KC_SPACE)); break;
+        case DOUBLE_TAP: register_code16(KC_SPACE); register_code16(KC_SPACE); break;
+        case DOUBLE_SINGLE_TAP: tap_code16(KC_SPACE); register_code16(KC_SPACE);
     }
 }
 
-void cmdspc_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            unregister_code16(KC_SPC);
-            break;
-        case TD_SINGLE_HOLD:
-            unregister_code16(LCMD(KC_SPC)); // For a layer-tap key, use `layer_off(_MY_LAYER)` here
-            break;
-        default:
-            break;
+void dance_15_reset(qk_tap_dance_state_t *state, void *user_data) {
+    wait_ms(10);
+    switch (dance_state.step) {
+        case SINGLE_TAP: unregister_code16(KC_SPACE); break;
+        case SINGLE_HOLD: unregister_code16(LGUI(KC_SPACE)); break;
+        case DOUBLE_TAP: unregister_code16(KC_SPACE); break;
+        case DOUBLE_SINGLE_TAP: unregister_code16(KC_SPACE); break;
     }
+    dance_state.step = 0;
 }
 
-// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [CMD_SPC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cmdspc_finished, cmdspc_reset)
+    [DANCE_15] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_15, dance_15_finished, dance_15_reset),
 };

@@ -6,6 +6,13 @@
 #include "config_common.h"
 
 #define TAPPING_TERM 200
+#define TAPPING_FORCE_HOLD
+
+#define PERMISSIVE_HOLD
+
+#define USE_SERIAL_PD2
+
+#define USB_SUSPEND_WAKEUP_DELAY 0
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -30,3 +37,12 @@
 /* Top right key on right half */
 #define BOOTMAGIC_LITE_ROW_RIGHT    4
 #define BOOTMAGIC_LITE_COLUMN_RIGHT 5
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
