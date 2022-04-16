@@ -5,14 +5,6 @@
 
 #include "config_common.h"
 
-#define TAPPING_TERM 200
-#define TAPPING_FORCE_HOLD
-
-#define PERMISSIVE_HOLD
-
-#define USE_SERIAL_PD2
-
-#define USB_SUSPEND_WAKEUP_DELAY 0
 
 /* key matrix size */
 #define MATRIX_ROWS 8
