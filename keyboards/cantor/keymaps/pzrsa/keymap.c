@@ -53,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TAB, KC_EXLM, KC_GRV, KC_LPRN, KC_LCBR, KC_UNDS,                        KC_MINS, KC_RCBR, KC_RPRN,  KC_BSLS, XXXXXXX, XXXXXXX,
+      KC_TAB, KC_EXLM, KC_GRV, KC_LPRN, KC_LCBR, KC_UNDS,                        KC_MINS, KC_RCBR, KC_RPRN, KC_BSLS, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LOPT, XXXXXXX, XXXXXXX, LALT(KC_3), KC_LBRC, KC_PLUS,                    KC_EQL, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LSFT, KC_LCMD, XXXXXXX,     _______, XXXXXXX, XXXXXXX
+                                          KC_LCMD, KC_LSFT, XXXXXXX,     _______, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
 
