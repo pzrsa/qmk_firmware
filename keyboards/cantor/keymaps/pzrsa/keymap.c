@@ -51,11 +51,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // num and sym layer
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+      KC_ESC, KC_EXLM, KC_AT, KC_LPRN, KC_RPRN, KC_MINS,                         KC_UNDS,  KC_7,    KC_8,    KC_9,  XXXXXXX, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TAB, KC_EXLM, KC_AT, KC_LPRN, KC_LCBR, KC_UNDS,                        KC_MINS, KC_RCBR, KC_RPRN, KC_BSLS, XXXXXXX, XXXXXXX,
+      KC_TAB, XXXXXXX, LALT(KC_3), KC_LCBR, KC_RCBR, KC_EQL,                     KC_PLUS,  KC_4,    KC_5,    KC_6,  XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LOPT, KC_GRV, KC_DLR, LALT(KC_3), KC_LBRC, KC_PLUS,                    KC_EQL, KC_RBRC, KC_AMPR, XXXXXXX, XXXXXXX, KC_RCTL,
+      KC_LOPT, KC_GRV, KC_DLR, KC_LBRC, KC_RBRC, KC_BSLS,                         KC_0,    KC_1,    KC_2,    KC_3,  XXXXXXX, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LCMD, KC_LSFT, XXXXXXX,     _______, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                  XXXXXXX, RSG(KC_LBRC), RSG(KC_RBRC), XXXXXXX, XXXXXXX,XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, SCMD(LCTL(KC_4)), KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                    KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, XXXXXXX, XXXXXXX,
+      XXXXXXX, SCMD(LCTL(KC_4)), KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,            KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LOPT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
