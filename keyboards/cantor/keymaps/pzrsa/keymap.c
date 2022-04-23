@@ -48,14 +48,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   ),
 
-  // num and sym layer
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_ESC, KC_EXLM, KC_AT, KC_LPRN, KC_RPRN, KC_MINS,                         KC_UNDS,  KC_7,    KC_8,    KC_9,  XXXXXXX, KC_BSPC,
+      KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,   KC_8,    KC_9,    KC_0,   KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TAB, XXXXXXX, LALT(KC_3), KC_LCBR, KC_RCBR, KC_EQL,                     KC_PLUS,  KC_4,    KC_5,    KC_6,  XXXXXXX, XXXXXXX,
+      KC_TAB, KC_EXLM, KC_DLR, KC_LCBR, KC_RCBR, KC_MINS,                        KC_UNDS, KC_LPRN, KC_RPRN, KC_AMPR, KC_BSLS, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LOPT, KC_GRV, KC_DLR, KC_LBRC, KC_RBRC, KC_BSLS,                         KC_0,    KC_1,    KC_2,    KC_3,  XXXXXXX, KC_RCTL,
+      KC_LOPT, LALT(KC_3), KC_AT, KC_LBRC, KC_RBRC, KC_EQL,                     KC_PLUS, KC_GRV,  KC_PERC,  XXXXXXX, XXXXXXX, KC_RCTL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                   KC_LCMD, LSFT_T(KC_SPC), XXXXXXX,     _______, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
